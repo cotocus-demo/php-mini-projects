@@ -10,4 +10,4 @@ if(isset($_GET['logout'])){
 }
 ?>
 <p> Welcome to index</p>
-<a href="index.php?logout=true">Logout</a>
+<a href="index1.php?logout=true">Logout</a>

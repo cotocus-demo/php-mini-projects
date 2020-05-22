@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+if(isset($_SESSION['userlogin'])){
+	header("Location:index1.php");
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,11 +45,12 @@ bootstrap.min.css">
 <label class= "custom-control-label" for = "customControlInline">Remember me</label>
 </div>
 </div>
-</form>
+
 </div>
 <div class ="d-flex justify-content-center mt-3 login-container">
 <button type ="button" name ="button" id="login" class= "btn login_btn">Login</button>
 </div>
+</form>
 <div class ="mt-4">
 <div class ="d-flex justify-content-center links">
 Don't have an account?<a href="registration.php" class = "ml-2">Sign Up</a>
@@ -59,6 +67,32 @@ Don't have an account?<a href="registration.php" class = "ml-2">Sign Up</a>
         crossorigin="anonymous">
 </script>
   <script type = "text/javascript" src=  "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js">
+  </script>
+  <script> 
+  $(function(){
+	  $('#login').click(function(e){
+		var valid = this.form.checkValidity();
+       if(valid){
+		   var username = $('#username').val();
+		   var password = $('#password').val();
+	   }		
+	  e.preventDefault();
+	  $.ajax({
+		  type: 'POST',
+		  url: 'jslogin.php',
+		  data:{username:username, password:password},
+		  success: function(data){
+			  alert(data);
+			  if($.trim(data)== "1"){
+				  setTimeout('window.location.href= "index1.php"',2000)
+			  }
+		  },
+		  error:function(data){
+			  alert('there were errors while doing the opperation.');
+		  }
+	  })
+	  });
+  });
   </script>
 </body>
 </html>
